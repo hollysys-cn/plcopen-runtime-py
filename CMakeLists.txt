@@ -129,6 +129,7 @@ include_directories(
 add_library(plcopen_fb STATIC
     src/fb/pid.c
     src/fb/first_order.c
+    src/fb/fb_registry.c
     src/common/error.c
     src/common/log.c
 )

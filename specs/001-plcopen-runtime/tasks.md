@@ -202,7 +202,7 @@
 - [X] T054 [P] 创建 docs/architecture.md 架构设计文档
 - [X] T055 [P] 创建 docs/api-reference.md API参考文档
 - [X] T056 代码审查和重构（圈复杂度检查）
-- [ ] T057 性能基准测试套件：
+- [X] T057 性能基准测试套件：
   - [X] T057a 创建 tests/benchmark/bench_pid.c PID执行时间基准测试（目标<1ms）
   - [X] T057b 创建 tests/benchmark/bench_first_order.c 一阶惯性执行时间基准测试
   - [X] T057c 创建 tests/benchmark/bench_memory.c 功能块实例内存占用测试（目标<1KB）

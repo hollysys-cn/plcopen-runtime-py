@@ -23,18 +23,18 @@ static size_t g_registry_count = 0;
 plcopen_error_t fb_registry_register(const fb_info_t *info)
 {
     if (info == NULL || info->name == NULL) {
-        return PLCOPEN_ERR_NULL;
+        return PLCOPEN_ERR_NULL_PTR;
     }
 
     /* 检查是否已存在 */
     if (fb_registry_find(info->name) != NULL) {
-        return PLCOPEN_ERR_PARAM;  /* 已存在 */
+        return PLCOPEN_ERR_ALREADY_EXISTS;  /* 已存在 */
     }
 
     /* 分配新条目 */
     fb_registry_entry_t *entry = (fb_registry_entry_t *)malloc(sizeof(fb_registry_entry_t));
     if (entry == NULL) {
-        return PLCOPEN_ERR_MEMORY;
+        return PLCOPEN_ERR_OUT_OF_MEMORY;
     }
 
     /* 复制信息 */
@@ -45,7 +45,7 @@ plcopen_error_t fb_registry_register(const fb_info_t *info)
     char *name_copy = (char *)malloc(name_len);
     if (name_copy == NULL) {
         free(entry);
-        return PLCOPEN_ERR_MEMORY;
+        return PLCOPEN_ERR_OUT_OF_MEMORY;
     }
     memcpy(name_copy, info->name, name_len);
     entry->info.name = name_copy;
@@ -57,7 +57,7 @@ plcopen_error_t fb_registry_register(const fb_info_t *info)
         if (desc_copy == NULL) {
             free((void *)entry->info.name);
             free(entry);
-            return PLCOPEN_ERR_MEMORY;
+            return PLCOPEN_ERR_OUT_OF_MEMORY;
         }
         memcpy(desc_copy, info->description, desc_len);
         entry->info.description = desc_copy;
@@ -120,7 +120,7 @@ const fb_info_t** fb_registry_list(size_t *count)
 plcopen_error_t fb_registry_unregister(const char *name)
 {
     if (name == NULL) {
-        return PLCOPEN_ERR_NULL;
+        return PLCOPEN_ERR_NULL_PTR;
     }
 
     fb_registry_entry_t *prev = NULL;
@@ -150,7 +150,7 @@ plcopen_error_t fb_registry_unregister(const char *name)
         entry = entry->next;
     }
 
-    return PLCOPEN_ERR_PARAM;  /* 未找到 */
+    return PLCOPEN_ERR_NOT_FOUND;  /* 未找到 */
 }
 
 void fb_registry_clear(void)

@@ -26,6 +26,7 @@ class RuntimeConfig:
     # 调试配置
     debug_enabled: bool = True
     debug_port: int = 5678
+    debug_wait: bool = False  # 是否等待调试器连接后再启动
 
     # 日志配置
     log_dir: Path = field(default_factory=lambda: Path("logs"))
@@ -45,6 +46,7 @@ class RuntimeConfig:
             cycle_time=float(os.getenv("PLCOPEN_CYCLE_TIME", "0.1")),
             debug_enabled=os.getenv("PLCOPEN_DEBUG_ENABLED", "true").lower() == "true",
             debug_port=int(os.getenv("PLCOPEN_DEBUG_PORT", "5678")),
+            debug_wait=os.getenv("PLCOPEN_DEBUG_WAIT", "false").lower() == "true",
             log_dir=Path(os.getenv("PLCOPEN_LOG_DIR", "logs")),
             log_level=os.getenv("PLCOPEN_LOG_LEVEL", "INFO"),
             log_max_size=int(os.getenv("PLCOPEN_LOG_MAX_SIZE", str(10 * 1024 * 1024))),
