@@ -58,6 +58,10 @@
 - [ ] T017 [P] 创建 tests/unit/c/unity_config.h Unity配置
 - [ ] T018 [P] 配置 pytest.ini Python测试配置
 
+### ARM交叉编译（早期验证）
+
+- [ ] T018a 创建 docker/Dockerfile.arm ARM交叉编译镜像（验证工具链可用性）
+
 **Checkpoint**: 基础设施就绪，用户故事实现可以开始
 
 ---
@@ -119,7 +123,8 @@
 ### Implementation for User Story 3
 
 - [ ] T032 [US3] 创建 runtime/script_manager.py 脚本管理器（watchdog监控、热重载）
-- [ ] T033 [US3] 实现脚本加载逻辑（检测main函数、模块命名空间隔离）
+- [ ] T033 [US3] 实现脚本加载逻辑（检测main函数、模块命名空间隔离、错误隔离）
+- [ ] T033a [US3] 实现脚本执行错误隔离（try-except包装、错误计数、连续失败自动禁用）
 - [ ] T034 [US3] 实现热重载逻辑（importlib.reload + 状态保留回调）
 - [ ] T035 [US3] 实现脚本卸载逻辑（删除检测、资源释放）
 - [ ] T036 [US3] 添加 src/python/py_pid.c 中 get_state/set_state 方法（状态序列化）
@@ -197,9 +202,12 @@
 - [ ] T054 [P] 创建 docs/architecture.md 架构设计文档
 - [ ] T055 [P] 创建 docs/api-reference.md API参考文档
 - [ ] T056 代码审查和重构（圈复杂度检查）
-- [ ] T057 性能验证（PID执行时间 < 1ms）
+- [ ] T057 性能基准测试套件：
+  - [ ] T057a 创建 tests/benchmark/bench_pid.c PID执行时间基准测试（目标<1ms）
+  - [ ] T057b 创建 tests/benchmark/bench_first_order.c 一阶惯性执行时间基准测试
+  - [ ] T057c 创建 tests/benchmark/bench_memory.c 功能块实例内存占用测试（目标<1KB）
+  - [ ] T057d 运行基准测试并记录结果到 docs/benchmark-results.md
 - [ ] T058 运行 quickstart.md 全流程验证
-- [ ] T059 创建 docker/Dockerfile.arm ARM交叉编译镜像
 
 ---
 
@@ -280,15 +288,15 @@ Phase 4: T025 ─┴─ T026  →  T027 ─┴─ T028 → T029 → T030
 | Phase | 任务数 | 并行任务数 |
 |-------|--------|-----------|
 | Phase 1: Setup | 6 | 5 |
-| Phase 2: Foundational | 12 | 9 |
+| Phase 2: Foundational | 13 | 9 |
 | Phase 3: US1 PID | 6 | 2 |
 | Phase 4: US2 FirstOrder | 6 | 2 |
-| Phase 5: US3 热加载 | 7 | 1 |
+| Phase 5: US3 热加载 | 8 | 1 |
 | Phase 6: US4 调试 | 5 | 2 |
 | Phase 7: US5 X86环境 | 6 | 1 |
 | Phase 8: US6 扩展 | 4 | 0 |
-| Phase 9: Polish | 7 | 3 |
-| **Total** | **59** | **25** |
+| Phase 9: Polish | 10 | 3 |
+| **Total** | **64** | **25** |
 
 ---
 

@@ -136,6 +136,12 @@ INIT → RUNNING → STOPPING → STOPPED
 | out_max | float | +∞ | (out_min, ∞) | 输出上限 |
 | dt | float | 0.1 | (0, ∞) | 采样周期（秒） |
 
+**参数验证规则**：
+- `kp`, `ki`, `kd` 必须 ≥ 0，负值将返回 `PLCOPEN_ERR_INVALID_PARAM`
+- `out_min` 必须 < `out_max`，否则返回 `PLCOPEN_ERR_INVALID_PARAM`
+- `dt` 必须 > 0，零或负值将返回 `PLCOPEN_ERR_INVALID_PARAM`
+- 输入值（setpoint, pv）为 NaN 时返回 `PLCOPEN_ERR_NAN`，为 Inf 时返回 `PLCOPEN_ERR_INF`
+
 **输入**：
 | 输入 | 类型 | 说明 |
 |------|------|------|
