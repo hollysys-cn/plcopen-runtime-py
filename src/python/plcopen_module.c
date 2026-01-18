@@ -33,7 +33,7 @@ static py_type_entry_t py_types[] = {
  * ========================================================================== */
 
 static PyObject *
-plcopen_version(PyObject *self, PyObject *Py_UNUSED(args))
+py_plcopen_version(PyObject *self, PyObject *Py_UNUSED(args))
 {
     (void)self;
     return PyUnicode_FromString(PLCOPEN_VERSION_STRING);
@@ -66,7 +66,7 @@ plcopen_list_types(PyObject *self, PyObject *Py_UNUSED(args))
 }
 
 static PyMethodDef PlcopenMethods[] = {
-    {"version", plcopen_version, METH_NOARGS,
+    {"version", py_plcopen_version, METH_NOARGS,
      "获取PLCOpen运行时版本。\n\n返回:\n    str: 版本字符串"},
     {"list_types", plcopen_list_types, METH_NOARGS,
      "列出所有已注册的功能块类型。\n\n返回:\n    list: 功能块名称列表"},

@@ -8,6 +8,7 @@
 #include "unity.h"
 #include "plcopen/fb_first_order.h"
 #include <math.h>
+#include <string.h>
 
 static first_order_instance_t fo;
 
@@ -44,28 +45,28 @@ void test_invalid_time_constant_zero(void)
 {
     first_order_params_t params = {.k = 1.0, .t = 0.0, .dt = 0.1};
     plcopen_error_t err = first_order_validate_params(&params);
-    TEST_ASSERT_EQUAL(PLCOPEN_ERR_PARAM, err);
+    TEST_ASSERT_EQUAL(PLCOPEN_ERR_INVALID_PARAM, err);
 }
 
 void test_invalid_time_constant_negative(void)
 {
     first_order_params_t params = {.k = 1.0, .t = -1.0, .dt = 0.1};
     plcopen_error_t err = first_order_validate_params(&params);
-    TEST_ASSERT_EQUAL(PLCOPEN_ERR_PARAM, err);
+    TEST_ASSERT_EQUAL(PLCOPEN_ERR_INVALID_PARAM, err);
 }
 
 void test_invalid_dt_zero(void)
 {
     first_order_params_t params = {.k = 1.0, .t = 1.0, .dt = 0.0};
     plcopen_error_t err = first_order_validate_params(&params);
-    TEST_ASSERT_EQUAL(PLCOPEN_ERR_PARAM, err);
+    TEST_ASSERT_EQUAL(PLCOPEN_ERR_INVALID_PARAM, err);
 }
 
 void test_invalid_dt_negative(void)
 {
     first_order_params_t params = {.k = 1.0, .t = 1.0, .dt = -0.1};
     plcopen_error_t err = first_order_validate_params(&params);
-    TEST_ASSERT_EQUAL(PLCOPEN_ERR_PARAM, err);
+    TEST_ASSERT_EQUAL(PLCOPEN_ERR_INVALID_PARAM, err);
 }
 
 void test_valid_negative_gain(void)

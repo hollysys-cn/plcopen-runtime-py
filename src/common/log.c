@@ -19,6 +19,7 @@
 #else
     #include <sys/stat.h>
     #include <unistd.h>
+    #include <errno.h>
     #define PATH_SEPARATOR "/"
 #endif
 

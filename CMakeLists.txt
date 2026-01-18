@@ -133,6 +133,9 @@ add_library(plcopen_fb STATIC
     src/common/log.c
 )
 
+# 需要 -fPIC 以便链接到 Python 共享扩展模块
+set_target_properties(plcopen_fb PROPERTIES POSITION_INDEPENDENT_CODE ON)
+
 target_include_directories(plcopen_fb PUBLIC
     ${CMAKE_SOURCE_DIR}/include
 )
@@ -168,8 +171,9 @@ if(BUILD_TESTS)
     include(FetchContent)
     FetchContent_Declare(
         unity
-        GIT_REPOSITORY https://gitee.com/mirrors/Unity.git
+        GIT_REPOSITORY https://github.com/ThrowTheSwitch/Unity.git
         GIT_TAG v2.6.0
+        GIT_SHALLOW TRUE
     )
     FetchContent_MakeAvailable(unity)
 
@@ -184,7 +188,7 @@ if(BUILD_TESTS)
     add_executable(test_first_order
         tests/unit/c/test_first_order.c
     )
-    target_link_libraries(test_first_order PRIVATE plcopen_fb unity)
+    target_link_libraries(test_first_order PRIVATE plcopen_fb unity m)
     add_test(NAME test_first_order COMMAND test_first_order)
 endif()
 
