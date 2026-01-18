@@ -1,11 +1,16 @@
 # =============================================================================
 # PLCOpen 嵌入式运行时 - 开发环境 Dockerfile
 # =============================================================================
-# 使用阿里云镜像加速
+# 使用多阶段构建，将编译环境与代码编译分开，充分利用缓存
+#
 # 构建: docker build -f docker/Dockerfile.dev -t plcopen-dev .
+# 重建编译环境: docker build -f docker/Dockerfile.dev --target builder -t plcopen-dev-base .
 # =============================================================================
 
-FROM python:3.11-slim
+# =============================================================================
+# 阶段1: 基础编译环境 (很少变化，可长期缓存)
+# =============================================================================
+FROM python:3.11-slim AS base
 
 LABEL maintainer="Hollysys <dev@hollysys.com>"
 LABEL description="PLCOpen嵌入式运行时开发环境"
@@ -14,7 +19,7 @@ LABEL description="PLCOpen嵌入式运行时开发环境"
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources && \
     sed -i 's/security.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources
 
-# 安装系统依赖
+# 安装系统依赖 (这一层会被缓存)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
     cmake \
@@ -29,19 +34,47 @@ RUN pip config set global.index-url https://mirrors.aliyun.com/pypi/simple/ && \
 # 设置工作目录
 WORKDIR /app
 
-# 复制依赖文件
+# =============================================================================
+# 阶段2: Python依赖安装 (requirements.txt变化时才重建)
+# =============================================================================
+FROM base AS deps
+
+# 先只复制requirements.txt，利用缓存
 COPY requirements.txt .
 
-# 安装Python依赖
+# 安装Python依赖 (只有requirements.txt变化才会重新执行)
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 复制项目文件
-COPY . .
+# =============================================================================
+# 阶段3: 代码编译 (代码变化时重建，但复用前面的环境)
+# =============================================================================
+FROM deps AS builder
+
+# 先复制CMake和构建相关文件
+COPY CMakeLists.txt .
+COPY cmake/ cmake/
+COPY include/ include/
+COPY src/ src/
+COPY tests/ tests/
 
 # 构建C扩展
 RUN mkdir -p build && cd build && \
     cmake .. -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON && \
     make -j$(nproc)
+
+# =============================================================================
+# 阶段4: 最终运行时镜像
+# =============================================================================
+FROM deps AS runtime
+
+# 复制Python运行时代码（先复制，这样后面的.so文件可以覆盖）
+COPY runtime/ runtime/
+COPY plcopen/ plcopen/
+
+# 从builder阶段复制构建产物（包含.so文件到plcopen/目录）
+COPY --from=builder /app/build /app/build
+COPY --from=builder /app/include /app/include
+COPY --from=builder /app/plcopen/plcopen.so /app/plcopen/
 
 # 设置环境变量
 ENV PYTHONPATH=/app:/app/build
