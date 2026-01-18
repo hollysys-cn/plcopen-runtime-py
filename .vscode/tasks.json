@@ -1,0 +1,165 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "构建C库",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build",
+                "--config",
+                "Debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$gcc",
+            "detail": "构建PLCOpen C库和Python扩展"
+        },
+        {
+            "label": "CMake配置",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "-B",
+                "build",
+                "-DCMAKE_BUILD_TYPE=Debug",
+                "-DBUILD_TESTING=ON"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "配置CMake构建系统"
+        },
+        {
+            "label": "构建C测试",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build",
+                "build",
+                "--target",
+                "test_pid"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": "CMake配置",
+            "problemMatcher": "$gcc",
+            "detail": "构建PID单元测试"
+        },
+        {
+            "label": "运行C测试",
+            "type": "shell",
+            "command": "ctest",
+            "args": [
+                "--output-on-failure",
+                "-C",
+                "Debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            },
+            "dependsOn": "构建C库",
+            "problemMatcher": [],
+            "detail": "运行所有C单元测试"
+        },
+        {
+            "label": "运行Python测试",
+            "type": "shell",
+            "command": "pytest",
+            "args": [
+                "-v",
+                "--tb=short"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "运行所有Python测试"
+        },
+        {
+            "label": "Docker构建开发镜像",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "build",
+                "-f",
+                "docker/Dockerfile.dev",
+                "-t",
+                "plcopen-runtime:dev",
+                "."
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "构建开发Docker镜像"
+        },
+        {
+            "label": "Docker启动开发环境",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "up",
+                "-d"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "启动Docker Compose开发环境"
+        },
+        {
+            "label": "Docker停止开发环境",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "down"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "停止Docker Compose开发环境"
+        },
+        {
+            "label": "Docker查看日志",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "compose",
+                "logs",
+                "-f",
+                "runtime"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "查看运行时容器日志"
+        },
+        {
+            "label": "清理构建目录",
+            "type": "shell",
+            "command": "rm",
+            "args": [
+                "-rf",
+                "build"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [],
+            "detail": "删除build目录"
+        }
+    ]
+}

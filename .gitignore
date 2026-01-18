@@ -1,0 +1,134 @@
+# PLCOpen Runtime - Git忽略文件
+# 项目类型: C11 + Python 混合项目
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 虚拟环境
+.venv/
+venv/
+ENV/
+env/
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ===== C/C++ =====
+# 编译产物
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.out
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+*.cmake
+!cmake/*.cmake
+!CMakeLists.txt
+
+# Build目录
+build/
+out/
+bin/
+Release/
+Debug/
+x64/
+x86/
+
+# ===== IDE =====
+# VSCode (保留.vscode/launch.json和tasks.json)
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# JetBrains
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# ===== 操作系统 =====
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+
+# ===== 项目特定 =====
+# 日志文件
+logs/*.log
+logs/*.log.*
+*.log
+
+# 环境变量
+.env
+.env.*
+!.env.example
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+*.swo
+
+# Unity测试框架（第三方）
+tests/unit/c/unity/
+
+# 编译的Python扩展
+plcopen/_plcopen*.so
+plcopen/_plcopen*.pyd
+
+# 脚本目录中的示例（保留demo.py）
+scripts/*.py
+!scripts/demo.py
+!scripts/.gitkeep

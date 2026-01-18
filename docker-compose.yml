@@ -1,0 +1,76 @@
+# =============================================================================
+# PLCOpen 嵌入式运行时 - Docker Compose 配置
+# =============================================================================
+# 启动: docker compose up --build
+# 进入容器: docker compose exec runtime bash
+# =============================================================================
+
+services:
+  runtime:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: plcopen-runtime
+
+    # 挂载卷
+    volumes:
+      # 脚本目录（热加载）
+      - ./scripts:/app/scripts:rw
+      # 日志目录
+      - ./logs:/app/logs:rw
+      # 源代码（开发时热重载）
+      - ./runtime:/app/runtime:ro
+      - ./src:/app/src:ro
+      - ./include:/app/include:ro
+
+    # 端口映射
+    ports:
+      # debugpy远程调试端口
+      - "5678:5678"
+
+    # 环境变量
+    environment:
+      - PYTHONPATH=/app:/app/build
+      - PYTHONUNBUFFERED=1
+      - PLCOPEN_SCRIPT_DIR=/app/scripts
+      - PLCOPEN_LOG_DIR=/app/logs
+      - PLCOPEN_DEBUG_ENABLED=true
+      - PLCOPEN_DEBUG_PORT=5678
+      - PLCOPEN_CYCLE_TIME=0.1
+      - PLCOPEN_SCAN_INTERVAL=1.0
+
+    # 保持容器运行
+    stdin_open: true
+    tty: true
+
+    # 重启策略
+    restart: unless-stopped
+
+    # 资源限制（可选）
+    # deploy:
+    #   resources:
+    #     limits:
+    #       cpus: '1.0'
+    #       memory: 512M
+
+  # 测试运行器（可选）
+  test:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    container_name: plcopen-test
+
+    volumes:
+      - ./tests:/app/tests:ro
+      - ./runtime:/app/runtime:ro
+      - ./src:/app/src:ro
+      - ./include:/app/include:ro
+
+    environment:
+      - PYTHONPATH=/app:/app/build
+
+    # 运行测试后退出
+    command: ["sh", "-c", "cd /app/build && ctest --output-on-failure && pytest /app/tests -v"]
+
+    profiles:
+      - test

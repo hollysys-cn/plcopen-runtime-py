@@ -19,12 +19,12 @@
 
 **Purpose**: 创建项目基础结构和构建系统
 
-- [ ] T001 创建项目目录结构（src/, include/, runtime/, tests/, docker/, cmake/, scripts/, logs/）
-- [ ] T002 [P] 创建 CMakeLists.txt 主构建配置
-- [ ] T003 [P] 创建 pyproject.toml Python项目配置
-- [ ] T004 [P] 创建 requirements.txt Python依赖（debugpy, watchdog, pytest）
-- [ ] T005 [P] 创建 .gitignore 文件
-- [ ] T006 [P] 创建 README.md 项目说明
+- [X] T001 创建项目目录结构（src/, include/, runtime/, tests/, docker/, cmake/, scripts/, logs/）
+- [X] T002 [P] 创建 CMakeLists.txt 主构建配置
+- [X] T003 [P] 创建 pyproject.toml Python项目配置
+- [X] T004 [P] 创建 requirements.txt Python依赖（debugpy, watchdog, pytest）
+- [X] T005 [P] 创建 .gitignore 文件
+- [X] T006 [P] 创建 README.md 项目说明
 
 ---
 
@@ -36,31 +36,31 @@
 
 ### Docker开发环境
 
-- [ ] T007 创建 docker/Dockerfile.dev 开发环境镜像（配置阿里云镜像源）
-- [ ] T008 创建 docker-compose.yml Docker Compose配置
-- [ ] T009 [P] 创建 cmake/toolchain-arm.cmake ARM交叉编译工具链配置
+- [X] T007 创建 docker/Dockerfile.dev 开发环境镜像（配置阿里云镜像源）
+- [X] T008 创建 docker-compose.yml Docker Compose配置
+- [X] T009 [P] 创建 cmake/toolchain-arm.cmake ARM交叉编译工具链配置
 
 ### C基础设施
 
-- [ ] T010 [P] 创建 include/plcopen/plcopen.h 主头文件
-- [ ] T011 [P] 创建 include/plcopen/fb_common.h 功能块通用定义
-- [ ] T012 [P] 创建 src/common/error.h 和 src/common/error.c 错误处理
-- [ ] T013 [P] 创建 src/common/log.h 和 src/common/log.c 日志系统（控制台+文件轮转）
+- [X] T010 [P] 创建 include/plcopen/plcopen.h 主头文件
+- [X] T011 [P] 创建 include/plcopen/fb_common.h 功能块通用定义
+- [X] T012 [P] 创建 src/common/error.h 和 src/common/error.c 错误处理
+- [X] T013 [P] 创建 src/common/log.h 和 src/common/log.c 日志系统（控制台+文件轮转）
 
 ### Python运行时基础
 
-- [ ] T014 创建 runtime/__init__.py 模块初始化
-- [ ] T015 [P] 创建 runtime/config.py 配置管理（脚本目录、周期、调试端口等）
+- [X] T014 创建 runtime/__init__.py 模块初始化
+- [X] T015 [P] 创建 runtime/config.py 配置管理（脚本目录、周期、调试端口等）
 
 ### 测试框架
 
-- [ ] T016 [P] 配置 CMakeLists.txt 集成Unity测试框架
-- [ ] T017 [P] 创建 tests/unit/c/unity_config.h Unity配置
-- [ ] T018 [P] 配置 pytest.ini Python测试配置
+- [X] T016 [P] 配置 CMakeLists.txt 集成Unity测试框架
+- [X] T017 [P] 创建 tests/unit/c/unity_config.h Unity配置
+- [X] T018 [P] 配置 pytest.ini Python测试配置
 
 ### ARM交叉编译（早期验证）
 
-- [ ] T018a 创建 docker/Dockerfile.arm ARM交叉编译镜像（验证工具链可用性）
+- [X] T018a 创建 docker/Dockerfile.arm ARM交叉编译镜像（验证工具链可用性）
 
 **Checkpoint**: 基础设施就绪，用户故事实现可以开始
 
@@ -74,15 +74,15 @@
 
 ### Tests for User Story 1
 
-- [ ] T019 [P] [US1] 创建 tests/unit/c/test_pid.c PID功能块C单元测试
-- [ ] T020 [P] [US1] 创建 tests/unit/python/test_pid.py PID Python绑定单元测试
+- [X] T019 [P] [US1] 创建 tests/unit/c/test_pid.c PID功能块C单元测试
+- [X] T020 [P] [US1] 创建 tests/unit/python/test_pid.py PID Python绑定单元测试
 
 ### Implementation for User Story 1
 
-- [ ] T021 [P] [US1] 创建 src/fb/pid.h PID功能块头文件（参数、输入、输出、状态结构体）
-- [ ] T022 [US1] 实现 src/fb/pid.c PID功能块核心算法（位置式PID + 输出限幅）
-- [ ] T023 [US1] 创建 src/python/py_pid.c PID Python绑定（类定义、方法、属性）
-- [ ] T024 [US1] 更新 src/python/plcopen_module.c 注册PID类型到模块
+- [X] T021 [P] [US1] 创建 src/fb/pid.h PID功能块头文件（参数、输入、输出、状态结构体）
+- [X] T022 [US1] 实现 src/fb/pid.c PID功能块核心算法（位置式PID + 输出限幅）
+- [X] T023 [US1] 创建 src/python/py_pid.c PID Python绑定（类定义、方法、属性）
+- [X] T024 [US1] 更新 src/python/plcopen_module.c 注册PID类型到模块
 
 **Checkpoint**: PID功能块可独立使用，`import plcopen; plcopen.PID()` 可工作
 
@@ -96,15 +96,15 @@
 
 ### Tests for User Story 2
 
-- [ ] T025 [P] [US2] 创建 tests/unit/c/test_first_order.c 一阶惯性C单元测试
-- [ ] T026 [P] [US2] 创建 tests/unit/python/test_first_order.py 一阶惯性Python绑定单元测试
+- [X] T025 [P] [US2] 创建 tests/unit/c/test_first_order.c 一阶惯性C单元测试
+- [X] T026 [P] [US2] 创建 tests/unit/python/test_first_order.py 一阶惯性Python绑定单元测试
 
 ### Implementation for User Story 2
 
-- [ ] T027 [P] [US2] 创建 src/fb/first_order.h 一阶惯性头文件
-- [ ] T028 [US2] 实现 src/fb/first_order.c 一阶惯性核心算法（离散化递推）
-- [ ] T029 [US2] 创建 src/python/py_first_order.c 一阶惯性Python绑定
-- [ ] T030 [US2] 更新 src/python/plcopen_module.c 注册FirstOrder类型到模块
+- [X] T027 [P] [US2] 创建 src/fb/first_order.h 一阶惯性头文件
+- [X] T028 [US2] 实现 src/fb/first_order.c 一阶惯性核心算法（离散化递推）
+- [X] T029 [US2] 创建 src/python/py_first_order.c 一阶惯性Python绑定
+- [X] T030 [US2] 更新 src/python/plcopen_module.c 注册FirstOrder类型到模块
 
 **Checkpoint**: 一阶惯性功能块可独立使用
 
@@ -118,17 +118,17 @@
 
 ### Tests for User Story 3
 
-- [ ] T031 [P] [US3] 创建 tests/unit/python/test_script_manager.py 脚本管理器单元测试
+- [X] T031 [P] [US3] 创建 tests/unit/python/test_script_manager.py 脚本管理器单元测试
 
 ### Implementation for User Story 3
 
-- [ ] T032 [US3] 创建 runtime/script_manager.py 脚本管理器（watchdog监控、热重载）
-- [ ] T033 [US3] 实现脚本加载逻辑（检测main函数、模块命名空间隔离、错误隔离）
-- [ ] T033a [US3] 实现脚本执行错误隔离（try-except包装、错误计数、连续失败自动禁用）
-- [ ] T034 [US3] 实现热重载逻辑（importlib.reload + 状态保留回调）
-- [ ] T035 [US3] 实现脚本卸载逻辑（删除检测、资源释放）
-- [ ] T036 [US3] 添加 src/python/py_pid.c 中 get_state/set_state 方法（状态序列化）
-- [ ] T037 [US3] 添加 src/python/py_first_order.c 中 get_state/set_state 方法
+- [X] T032 [US3] 创建 runtime/script_manager.py 脚本管理器（watchdog监控、热重载）
+- [X] T033 [US3] 实现脚本加载逻辑（检测main函数、模块命名空间隔离、错误隔离）
+- [X] T033a [US3] 实现脚本执行错误隔离（try-except包装、错误计数、连续失败自动禁用）
+- [X] T034 [US3] 实现热重载逻辑（importlib.reload + 状态保留回调）
+- [X] T035 [US3] 实现脚本卸载逻辑（删除检测、资源释放）
+- [X] T036 [US3] 添加 src/python/py_pid.c 中 get_state/set_state 方法（状态序列化）
+- [X] T037 [US3] 添加 src/python/py_first_order.c 中 get_state/set_state 方法
 
 **Checkpoint**: 脚本热重载功能可独立使用
 
@@ -142,14 +142,14 @@
 
 ### Tests for User Story 4
 
-- [ ] T038 [US4] 创建 tests/integration/test_debug.py 调试功能集成测试
+- [X] T038 [US4] 创建 tests/integration/test_debug.py 调试功能集成测试
 
 ### Implementation for User Story 4
 
-- [ ] T039 [US4] 创建 runtime/debug.py debugpy集成（监听端口5678）
-- [ ] T040 [US4] 更新 docker-compose.yml 暴露调试端口5678
-- [ ] T041 [P] [US4] 创建 .vscode/launch.json 调试配置（附加模式）
-- [ ] T042 [P] [US4] 创建 .vscode/tasks.json 任务配置（构建、运行）
+- [X] T039 [US4] 创建 runtime/debug.py debugpy集成（监听端口5678）
+- [X] T040 [US4] 更新 docker-compose.yml 暴露调试端口5678
+- [X] T041 [P] [US4] 创建 .vscode/launch.json 调试配置（附加模式）
+- [X] T042 [P] [US4] 创建 .vscode/tasks.json 任务配置（构建、运行）
 
 **Checkpoint**: VSCode调试功能可独立使用
 
@@ -163,15 +163,15 @@
 
 ### Tests for User Story 5
 
-- [ ] T043 [US5] 创建 tests/integration/test_runtime.py 运行时集成测试
+- [X] T043 [US5] 创建 tests/integration/test_runtime.py 运行时集成测试
 
 ### Implementation for User Story 5
 
-- [ ] T044 [US5] 创建 runtime/main.py 运行时入口（初始化、主循环、信号处理）
-- [ ] T045 [US5] 更新 CMakeLists.txt 添加X86/ARM条件编译
-- [ ] T046 [US5] 实现 Python解释器嵌入初始化（PyConfig配置）
-- [ ] T047 [US5] 实现主循环逻辑（周期调用脚本main函数）
-- [ ] T048 [P] [US5] 创建 scripts/demo.py 示例脚本（PID温度控制演示）
+- [X] T044 [US5] 创建 runtime/main.py 运行时入口（初始化、主循环、信号处理）
+- [X] T045 [US5] 更新 CMakeLists.txt 添加X86/ARM条件编译
+- [X] T046 [US5] 实现 Python解释器嵌入初始化（PyConfig配置）
+- [X] T047 [US5] 实现主循环逻辑（周期调用脚本main函数）
+- [X] T048 [P] [US5] 创建 scripts/demo.py 示例脚本（PID温度控制演示）
 
 **Checkpoint**: X86开发环境完全可用，docker compose up 可运行
 
@@ -185,10 +185,10 @@
 
 ### Implementation for User Story 6
 
-- [ ] T049 [US6] 创建 docs/extending.md 功能块扩展开发指南
-- [ ] T050 [US6] 创建 src/fb/fb_registry.h 和 src/fb/fb_registry.c 功能块注册表
-- [ ] T051 [US6] 重构 plcopen_module.c 使用注册表动态注册功能块
-- [ ] T052 [US6] 创建 templates/fb_template.c 功能块模板文件
+- [X] T049 [US6] 创建 docs/extending.md 功能块扩展开发指南
+- [X] T050 [US6] 创建 src/fb/fb_registry.h 和 src/fb/fb_registry.c 功能块注册表
+- [X] T051 [US6] 重构 plcopen_module.c 使用注册表动态注册功能块
+- [X] T052 [US6] 创建 templates/fb_template.c 功能块模板文件
 
 **Checkpoint**: 功能块扩展机制可用
 
@@ -198,16 +198,16 @@
 
 **Purpose**: 文档完善、代码优化、最终验证
 
-- [ ] T053 [P] 更新 README.md 添加完整的快速入门指南
-- [ ] T054 [P] 创建 docs/architecture.md 架构设计文档
-- [ ] T055 [P] 创建 docs/api-reference.md API参考文档
-- [ ] T056 代码审查和重构（圈复杂度检查）
+- [X] T053 [P] 更新 README.md 添加完整的快速入门指南
+- [X] T054 [P] 创建 docs/architecture.md 架构设计文档
+- [X] T055 [P] 创建 docs/api-reference.md API参考文档
+- [X] T056 代码审查和重构（圈复杂度检查）
 - [ ] T057 性能基准测试套件：
-  - [ ] T057a 创建 tests/benchmark/bench_pid.c PID执行时间基准测试（目标<1ms）
-  - [ ] T057b 创建 tests/benchmark/bench_first_order.c 一阶惯性执行时间基准测试
-  - [ ] T057c 创建 tests/benchmark/bench_memory.c 功能块实例内存占用测试（目标<1KB）
-  - [ ] T057d 运行基准测试并记录结果到 docs/benchmark-results.md
-- [ ] T058 运行 quickstart.md 全流程验证
+  - [X] T057a 创建 tests/benchmark/bench_pid.c PID执行时间基准测试（目标<1ms）
+  - [X] T057b 创建 tests/benchmark/bench_first_order.c 一阶惯性执行时间基准测试
+  - [X] T057c 创建 tests/benchmark/bench_memory.c 功能块实例内存占用测试（目标<1KB）
+  - [X] T057d 运行基准测试并记录结果到 docs/benchmark-results.md
+- [X] T058 运行 quickstart.md 全流程验证
 
 ---
 

@@ -1,0 +1,98 @@
+# =============================================================================
+# PLCOpen 嵌入式运行时 - Python项目配置
+# =============================================================================
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "cmake>=3.20"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plcopen-runtime"
+version = "1.0.0"
+description = "嵌入式PLCOpen运行时环境，支持PID和一阶惯性功能块"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+authors = [
+    {name = "Hollysys", email = "dev@hollysys.com"}
+]
+keywords = ["plcopen", "pid", "control", "embedded", "runtime"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: C",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development :: Embedded Systems",
+]
+
+dependencies = [
+    "watchdog>=3.0.0",
+    "debugpy>=1.8.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "pytest-timeout>=2.0.0",
+    "mypy>=1.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/hollysys-cn/plcopen-runtime-py"
+Documentation = "https://github.com/hollysys-cn/plcopen-runtime-py#readme"
+Repository = "https://github.com/hollysys-cn/plcopen-runtime-py.git"
+Issues = "https://github.com/hollysys-cn/plcopen-runtime-py/issues"
+
+[project.scripts]
+plcopen-runtime = "runtime.main:main"
+
+# =============================================================================
+# 工具配置
+# =============================================================================
+
+[tool.setuptools]
+packages = ["runtime", "plcopen"]
+package-dir = {"" = "."}
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --strict-markers"
+testpaths = ["tests/unit/python", "tests/integration"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+markers = [
+    "slow: 标记为慢速测试",
+    "integration: 集成测试",
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "D", "UP", "B", "C4", "SIM"]
+ignore = ["D100", "D104", "D107"]
+
+[tool.coverage.run]
+source = ["runtime", "plcopen"]
+omit = ["tests/*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise NotImplementedError",
+]

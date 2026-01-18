@@ -1,0 +1,59 @@
+# PLCOpen Runtime - Docker忽略文件
+# 排除不需要复制到容器的文件
+
+# Git
+.git/
+.github/
+.gitignore
+
+# 规格说明和文档（开发时使用）
+specs/
+docs/
+*.md
+!README.md
+
+# 构建产物
+build/
+out/
+dist/
+*.egg-info/
+
+# Python缓存
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# 虚拟环境
+.venv/
+venv/
+ENV/
+
+# IDE配置
+.vscode/
+.idea/
+
+# 日志
+logs/*.log
+logs/*.log.*
+
+# 环境变量（容器内单独配置）
+.env
+.env.*
+
+# 测试（可选：如需在容器内运行测试则移除）
+# tests/
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# Speckit工作目录
+.specify/

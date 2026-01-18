@@ -1,0 +1,43 @@
+# =============================================================================
+# PLCOpen 嵌入式运行时 - ARM 交叉编译 Dockerfile
+# =============================================================================
+# 用于 ARM Cortex-M4 目标架构的交叉编译
+# 构建: docker build -f docker/Dockerfile.arm -t plcopen-arm .
+# =============================================================================
+
+FROM debian:bookworm-slim
+
+LABEL maintainer="Hollysys <dev@hollysys.com>"
+LABEL description="PLCOpen运行时ARM交叉编译环境"
+
+# 配置阿里云镜像源
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources && \
+    sed -i 's/security.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources
+
+# 安装ARM交叉编译工具链
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    cmake \
+    git \
+    gcc-arm-none-eabi \
+    libnewlib-arm-none-eabi \
+    libnewlib-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# 验证工具链
+RUN arm-none-eabi-gcc --version && \
+    arm-none-eabi-objcopy --version
+
+# 设置工作目录
+WORKDIR /app
+
+# 复制项目文件
+COPY . .
+
+# 设置环境变量
+ENV CC=arm-none-eabi-gcc
+ENV AR=arm-none-eabi-ar
+ENV OBJCOPY=arm-none-eabi-objcopy
+
+# 默认命令：构建ARM版本
+CMD ["sh", "-c", "mkdir -p build-arm && cd build-arm && cmake .. -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain-arm.cmake -DBUILD_PYTHON_EXTENSION=OFF && make -j$(nproc)"]
