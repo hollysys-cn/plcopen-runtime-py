@@ -178,17 +178,28 @@ if(BUILD_TESTS)
     )
     FetchContent_MakeAvailable(unity)
 
+    # Unity配置：启用double精度 - 必须同时应用到Unity库和测试
+    set(UNITY_CONFIG_DIR ${CMAKE_SOURCE_DIR}/tests/unit/c)
+
+    # 配置Unity库支持double精度
+    target_include_directories(unity PRIVATE ${UNITY_CONFIG_DIR})
+    target_compile_definitions(unity PRIVATE UNITY_INCLUDE_CONFIG_H)
+
     # PID单元测试
     add_executable(test_pid
         tests/unit/c/test_pid.c
     )
-    target_link_libraries(test_pid PRIVATE plcopen_fb unity)
+    target_include_directories(test_pid PRIVATE ${UNITY_CONFIG_DIR})
+    target_compile_definitions(test_pid PRIVATE UNITY_INCLUDE_CONFIG_H)
+    target_link_libraries(test_pid PRIVATE plcopen_fb unity m)
     add_test(NAME test_pid COMMAND test_pid)
 
     # 一阶惯性单元测试
     add_executable(test_first_order
         tests/unit/c/test_first_order.c
     )
+    target_include_directories(test_first_order PRIVATE ${UNITY_CONFIG_DIR})
+    target_compile_definitions(test_first_order PRIVATE UNITY_INCLUDE_CONFIG_H)
     target_link_libraries(test_first_order PRIVATE plcopen_fb unity m)
     add_test(NAME test_first_order COMMAND test_first_order)
 endif()

@@ -512,6 +512,22 @@ class ScriptManager:
                         logger.info(f"检测到脚本删除: {name}")
                         handler_self.manager.remove_script(name)
 
+                def on_moved(handler_self, event):
+                    """处理文件移动事件（例如 sed -i 使用临时文件）"""
+                    if event.is_directory:
+                        return
+
+                    dest_path = Path(event.dest_path)
+                    if dest_path.suffix != ".py" or dest_path.name.startswith("__"):
+                        return
+
+                    if not handler_self._should_process(event.dest_path):
+                        return
+
+                    name = dest_path.stem
+                    logger.info(f"检测到脚本修改（移动）: {name}")
+                    handler_self.manager.reload_script(name)
+
             self._observer = Observer()
             handler = ScriptEventHandler(self)
             self._observer.schedule(handler, str(self.script_dir), recursive=False)
