@@ -1,50 +1,207 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report - Version 1.0.0 (2026-01-18)
 
-## Core Principles
+变更概述：
+- 版本变更：初始创建 → 1.0.0
+- 新增章节：全部核心原则 (I-VII)
+- 新增章节：架构约束、工程实践、治理规则
+- 修改的原则：无（初始创建）
+- 移除的章节：无
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+模板更新状态：
+- ✅ .specify/templates/plan-template.md（章程检查点已对齐）
+- ✅ .specify/templates/spec-template.md（需求对齐规则已同步）
+- ✅ .specify/templates/tasks-template.md（任务分类规则已同步）
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+待办事项：
+- 无
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+说明：
+本次为项目章程初始化，基于用户提供的详细开发规范和约束条件创建。
+所有原则针对中国大陆用户场景和简体中文环境进行了优化。
+-->
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+# PLCopen Runtime Python 项目章程
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+## 核心原则
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+### I. 本地化优先（语言与区域）
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+**原则：** 所有开发产出必须以简体中文为第一语言，面向中国大陆用户。
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**具体要求：**
+- 所有文档（规格说明、计划、任务清单）必须使用简体中文
+- 代码注释必须使用简体中文
+- 软件用户界面优先使用简体中文
+- AI 推理过程、对话交互使用简体中文
+- 错误信息和日志输出使用简体中文（技术术语可保留英文）
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+**理由：** 降低团队沟通成本，提升用户体验，确保文档和代码对中国大陆开发者和用户友好。
 
-## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
+---
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### II. SOLID 架构原则
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**原则：** 遵循 SOLID 原则，采用模块化设计，使用常用设计模式，避免过度设计。
+
+**具体要求：**
+- **单一职责（SRP）：** 每个模块/类只负责一个功能领域
+- **开闭原则（OCP）：** 对扩展开放，对修改关闭
+- **里氏替换（LSP）：** 子类可替换父类而不影响程序正确性
+- **接口隔离（ISP）：** 客户端不应依赖不需要的接口
+- **依赖倒置（DIP）：** 依赖抽象而非具体实现
+- 必须提供清晰的模块和接口设计文档
+- 优先使用常见设计模式（工厂、策略、观察者等）
+- 禁止为未来可能性进行过度设计
+- 代码必须简洁实用、人类易懂
+
+**理由：** 确保代码质量、可维护性和可扩展性，降低技术债务。
+
+---
+
+### III. 架构约束（最小变更范围）
+
+**原则：** 充分使用现有代码架构，避免修改现有文件目录结构。
+
+**具体要求：**
+- 新功能必须适配现有项目结构
+- 修复 BUG 时注意最小化修改范围
+- 避免修改非相关模块
+- 仅在新建项目时才允许创建新的目录结构
+- 对现有架构的修改必须有充分理由并经人工审核
+
+**理由：** 减少意外引入的回归问题，保持代码库稳定性。
+
+---
+
+### IV. 环境隔离（工作空间优先）
+
+**原则：** 开发环境及工具自动安装和配置，不污染本地电脑环境，影响范围限制在当前工作空间内。
+
+**具体要求：**
+- 环境变量配置使用项目根目录的 `.env` 文件
+- 使用虚拟环境（venv、conda）隔离 Python 依赖
+- 工具配置文件置于项目目录（`.vscode/`、`.editorconfig` 等）
+- 自动化脚本应检测并创建所需环境
+- 禁止要求全局安装依赖（除语言运行时本身）
+
+**理由：** 确保多项目并行开发时互不干扰，便于新成员快速上手，提升开发体验。
+
+---
+
+### V. 依赖管理（国内镜像优先 + 许可合规）
+
+**原则：** 依赖包优先从国内镜像源获取，所有第三方依赖必须开源且商业友好。
+
+**具体要求：**
+- Python 包优先从阿里云镜像（https://mirrors.aliyun.com/pypi/simple/）或清华镜像获取
+- 优先选用 MIT 或 Apache 2.0 协议的依赖
+- 引入新依赖前必须：
+  - 确认许可证类型
+  - 评估是否对商业应用友好
+  - 如涉及 GPL、LGPL、AGPL 等，必须经人工审核批准
+- 尽早通知人工确认新依赖引入
+- 在 `requirements.txt` 或 `pyproject.toml` 中注明依赖用途
+
+**理由：** 提升依赖下载速度，避免许可证风险，保护项目商业化能力。
+
+---
+
+### VI. 代码质量（注释、复杂度、可测试性）
+
+**原则：** 注重代码质量，确保注释及文档完善，控制圈复杂度，代码尽可能复用。
+
+**具体要求：**
+- 所有公共接口必须有中文文档字符串（docstring）
+- 复杂逻辑必须有行内注释说明意图
+- 圈复杂度不得超过 10（pylint、flake8 检查）
+- 函数/方法应保持单一职责，避免过长函数
+- 代码复用优先于重复实现
+- 必须具备良好的可测试性（可 mock、可注入依赖）
+- 关注用户体验（UX）和系统性能
+
+**理由：** 降低维护成本，便于团队协作，提升代码可读性和长期可维护性。
+
+---
+
+### VII. 跨平台开发体验
+
+**原则：** 保持 Windows、Linux、MacOS 开发体验的一致性，减少认知负担。
+
+**具体要求：**
+- 脚本提供 bash（Linux/Mac）和 PowerShell（Windows）双版本
+- 使用跨平台工具和库（pathlib、click、typer 等）
+- 文件路径使用 `Path` 对象而非字符串拼接
+- 文件编码统一使用 UTF-8
+- 换行符统一使用 Linux 格式（LF）
+- 构建和测试流程在三大平台保持一致
+
+**理由：** 团队成员可能使用不同操作系统，保持一致性可提升协作效率。
+
+---
+
+## 架构约束
+
+### 文件编码与格式
+
+- **编码：** UTF-8 without BOM
+- **换行符：** LF（Linux 格式）
+- **缩进：** Python 使用 4 空格，配置文件使用 2 空格
+- **字符串：** 代码中优先使用双引号，文档中保持自然
+
+### 设计哲学
+
+- **简洁：** 代码简洁明了，不追求炫技
+- **实用：** 功能实用，解决实际问题
+- **人类易懂：** 代码和文档易于人类理解，非机器优先
+
+---
+
+## 工程实践
+
+### 开发流程
+
+- 遵循 Speckit 工作流：specify → plan → tasks → implement
+- 每个功能从规格说明开始，经过计划、任务拆解、实现、测试
+- 关键节点必须进行章程符合性检查
+
+### 最佳实践
+
+- 结合开源社区最佳实践
+- 遵循 PEP 8（Python 代码风格）
+- 遵循语义化版本（Semantic Versioning）
+- 使用 Git 进行版本控制，提交信息遵循 Conventional Commits
+
+### 配置冲突解决
+
+- 当本章程与现有项目配置冲突时，以现有项目配置为准
+- 配置变更需更新章程并记录原因
+
+---
+
+## 治理
+
+### 章程效力
+
+本章程是项目的最高准则，所有开发活动必须符合章程要求。
+
+### 章程修订
+
+- 章程修订必须记录版本、修订日期、变更内容
+- 版本号遵循语义化版本：
+  - **MAJOR：** 原则移除或重大重新定义
+  - **MINOR：** 新增原则或重要扩展
+  - **PATCH：** 澄清、措辞改进、非语义性修正
+- 修订后必须更新相关模板和文档
+- 修订需记录在 Sync Impact Report 中
+
+### 符合性检查
+
+- 所有 PR/代码审查必须验证章程符合性
+- 计划阶段必须包含"章程检查"章节
+- 复杂性必须有充分理由
+- 使用 `.specify/memory/constitution.md` 作为开发指导的权威来源
+
+---
+
+**版本：** 1.0.0 | **批准日期：** 2026-01-18 | **最后修订：** 2026-01-18
