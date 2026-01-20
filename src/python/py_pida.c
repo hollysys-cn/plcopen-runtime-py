@@ -61,6 +61,10 @@ PyPIDA_init(PyPIDA *self, PyObject *args, PyObject *kwds)
         "outu", "outl", "spu", "spl",
         "pidtype", "eqn", "outopt", "actopt",
         "cyc",
+        /* 报警参数 */
+        "hh", "ah", "al", "ll",
+        "h2", "h1", "l1", "l2",
+        "almdb", "almopt",
         NULL
     };
     
@@ -70,13 +74,21 @@ PyPIDA_init(PyPIDA *self, PyObject *args, PyObject *kwds)
     int eqn = PIDA_EQN_STANDARD;
     int outopt = 0;
     int actopt = 1;
+    /* 报警参数默认值 */
+    int h2 = 0, h1 = 0, l1 = 0, l2 = 0;
+    int almopt = 1;
     
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "|ffffffffffffiiiif", kwlist,
+    /* 格式字符串: 12f + 4i + 5f + 4i + 1f + 1i = 27个参数 */
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, 
+            "|ffffffffffffiiiifffffiiiifi", kwlist,
             &params.kp, &params.ti, &params.td, &params.kd,
             &params.pvu, &params.pvl, &params.engu, &params.engl,
             &params.outu, &params.outl, &params.spu, &params.spl,
             &pidtype, &eqn, &outopt, &actopt,
-            &cyc)) {
+            &cyc,
+            &params.hh, &params.ah, &params.al, &params.ll,
+            &h2, &h1, &l1, &l2,
+            &params.almdb, &almopt)) {
         return -1;
     }
     
@@ -84,6 +96,12 @@ PyPIDA_init(PyPIDA *self, PyObject *args, PyObject *kwds)
     params.eqn = (uint8_t)eqn;
     params.outopt = (bool)outopt;
     params.actopt = (bool)actopt;
+    /* 报警级别和开关 */
+    params.h2 = (uint8_t)h2;
+    params.h1 = (uint8_t)h1;
+    params.l1 = (uint8_t)l1;
+    params.l2 = (uint8_t)l2;
+    params.almopt = (bool)almopt;
     
     plcopen_error_t err = pida_init_with_params(&self->instance, &params);
     if (err != PLCOPEN_OK) {
