@@ -132,3 +132,5 @@ plcopen/_plcopen*.pyd
 scripts/*.py
 !scripts/demo.py
 !scripts/.gitkeep
+!scripts/__init__.py
+!scripts/demo_pida.py
