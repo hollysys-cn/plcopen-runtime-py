@@ -129,6 +129,7 @@ include_directories(
 add_library(plcopen_fb STATIC
     src/fb/pid.c
     src/fb/first_order.c
+    src/fb/pida.c
     src/fb/fb_registry.c
     src/common/error.c
     src/common/log.c
@@ -150,6 +151,7 @@ if(BUILD_PYTHON_EXTENSION)
         src/python/plcopen_module.c
         src/python/py_pid.c
         src/python/py_first_order.c
+        src/python/py_pida.c
     )
 
     target_link_libraries(plcopen PRIVATE plcopen_fb)
@@ -202,6 +204,15 @@ if(BUILD_TESTS)
     target_compile_definitions(test_first_order PRIVATE UNITY_INCLUDE_CONFIG_H)
     target_link_libraries(test_first_order PRIVATE plcopen_fb unity m)
     add_test(NAME test_first_order COMMAND test_first_order)
+
+    # PIDA单元测试
+    add_executable(test_pida
+        tests/unit/c/test_pida.c
+    )
+    target_include_directories(test_pida PRIVATE ${UNITY_CONFIG_DIR})
+    target_compile_definitions(test_pida PRIVATE UNITY_INCLUDE_CONFIG_H)
+    target_link_libraries(test_pida PRIVATE plcopen_fb unity m)
+    add_test(NAME test_pida COMMAND test_pida)
 endif()
 
 # =============================================================================

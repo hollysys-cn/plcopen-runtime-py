@@ -8,7 +8,7 @@
 
 ## 特性
 
-- 🎯 **核心功能块**: 位置式PID控制器、一阶惯性滤波器
+- 🎯 **核心功能块**: 位置式PID控制器、PIDA（带报警PID）、一阶惯性滤波器
 - 🐍 **Python脚本**: 在Python中调用功能块，快速验证控制算法
 - 🔄 **热重载**: 运行时自动检测脚本变更，无需重启
 - 🔧 **远程调试**: 支持VSCode远程调试Python脚本
@@ -125,6 +125,53 @@ pid = plcopen.PID(
 output = pid.execute(setpoint=100.0, pv=80.0)
 print(f"控制输出: {output}, 偏差: {pid.error}, 限幅: {pid.saturated}")
 ```
+
+### PIDA控制器（带过程值报警）
+
+基于IEC61131-3标准的工业级PID控制器，支持五种运行模式和四级过程值报警。
+
+```python
+import plcopen
+
+# 创建PIDA实例
+pida = plcopen.PIDA(
+    kp=100.0,      # 比例带（%）
+    ti=30.0,       # 积分时间（秒）
+    td=5.0,        # 微分时间（秒）
+    pvu=100.0,     # PV量程上限
+    pvl=0.0,       # PV量程下限
+    outu=100.0,    # 输出上限（%）
+    outl=0.0,      # 输出下限（%）
+    actopt=1,      # 反作用（温度低时加热）
+    cyc=0.5,       # 计算周期（秒）
+)
+
+# 设置自动模式
+pida.sp = 60.0
+pida.mode = plcopen.PIDA_MODE_AUTO
+
+# 执行控制
+output = pida.execute(pv=45.0)
+print(f"输出: {output}, 偏差: {pida.error}")
+
+# 检查报警状态
+if pida.hhind:
+    print("高高限报警！")
+if pida.ahind:
+    print("高限报警")
+
+# 设定值爬坡
+pida.start_ramp(target=70.0, rate=5.0)  # 5%/秒爬到70%
+```
+
+**支持的模式：**
+- `PIDA_MODE_MANUAL` - 手动模式
+- `PIDA_MODE_AUTO` - 自动模式
+- `PIDA_MODE_CASCADE` - 串级模式
+- `PIDA_MODE_MANUAL_TRACK` - 手动跟踪
+- `PIDA_MODE_AUTO_TRACK` - 自动跟踪
+
+详见 [API参考文档](docs/api-reference.md) 和 [示例脚本](scripts/demo_pida.py)。
 
 ### 一阶惯性滤波器
 

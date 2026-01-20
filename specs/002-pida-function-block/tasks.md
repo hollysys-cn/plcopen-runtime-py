@@ -29,10 +29,10 @@
 
 **Purpose**: 创建PIDA功能块的基础文件结构
 
-- [ ] T001 创建 include/plcopen/fb_pida.h 头文件骨架，包含预处理保护和基本包含
-- [ ] T002 [P] 创建 src/fb/pida.c 实现文件骨架，包含头文件引用
-- [ ] T003 [P] 更新 CMakeLists.txt 添加 pida.c 到编译目标
-- [ ] T004 [P] 创建 src/python/py_pida.c Python绑定文件骨架
+- [X] T001 创建 include/plcopen/fb_pida.h 头文件骨架，包含预处理保护和基本包含
+- [X] T002 [P] 创建 src/fb/pida.c 实现文件骨架，包含头文件引用
+- [X] T003 [P] 更新 CMakeLists.txt 添加 pida.c 到编译目标
+- [X] T004 [P] 创建 src/python/py_pida.c Python绑定文件骨架
 
 ---
 
@@ -42,19 +42,19 @@
 
 **⚠️ CRITICAL**: 用户故事实现必须等待本阶段完成
 
-- [ ] T005 [P] 在 include/plcopen/fb_pida.h 中定义 pida_params_t 结构体（配置参数，参见 data-model.md）
-- [ ] T006 [P] 在 include/plcopen/fb_pida.h 中定义 pida_input_t 结构体（运行时输入，参见 data-model.md）
-- [ ] T007 [P] 在 include/plcopen/fb_pida.h 中定义 pida_state_t 结构体（内部状态，参见 data-model.md）
-- [ ] T008 [P] 在 include/plcopen/fb_pida.h 中定义 pida_output_t 结构体（输出结果，参见 data-model.md）
-- [ ] T009 [P] 在 include/plcopen/fb_pida.h 中定义 pida_instance_t 容器结构体
-- [ ] T010 [P] 在 include/plcopen/fb_pida.h 中定义枚举类型（pida_mode_t, pida_type_t, pida_eqn_t）
-- [ ] T011 [P] 在 include/plcopen/fb_pida.h 中定义位操作宏（PIDA_B_GET, PIDA_B_WRITE, PIDA_OVE_*, PIDA_AM_*）
-- [ ] T012 在 src/fb/pida.c 中实现 pida_default_params() 函数
-- [ ] T013 在 src/fb/pida.c 中实现 pida_validate_params() 函数
-- [ ] T014 在 src/fb/pida.c 中实现 pida_init() 和 pida_init_with_params() 函数
-- [ ] T015 在 src/fb/pida.c 中实现 pida_reset() 函数
-- [ ] T016 在 src/fb/pida.c 中实现 pida_get_output() 函数
-- [ ] T017 在 src/fb/pida.c 中实现 pida_get_state() 和 pida_set_state() 函数
+- [X] T005 [P] 在 include/plcopen/fb_pida.h 中定义 pida_params_t 结构体（配置参数，参见 data-model.md）
+- [X] T006 [P] 在 include/plcopen/fb_pida.h 中定义 pida_input_t 结构体（运行时输入，参见 data-model.md）
+- [X] T007 [P] 在 include/plcopen/fb_pida.h 中定义 pida_state_t 结构体（内部状态，参见 data-model.md）
+- [X] T008 [P] 在 include/plcopen/fb_pida.h 中定义 pida_output_t 结构体（输出结果，参见 data-model.md）
+- [X] T009 [P] 在 include/plcopen/fb_pida.h 中定义 pida_instance_t 容器结构体
+- [X] T010 [P] 在 include/plcopen/fb_pida.h 中定义枚举类型（pida_mode_t, pida_type_t, pida_eqn_t）
+- [X] T011 [P] 在 include/plcopen/fb_pida.h 中定义位操作宏（PIDA_B_GET, PIDA_B_WRITE, PIDA_OVE_*, PIDA_AM_*）
+- [X] T012 在 src/fb/pida.c 中实现 pida_default_params() 函数
+- [X] T013 在 src/fb/pida.c 中实现 pida_validate_params() 函数
+- [X] T014 在 src/fb/pida.c 中实现 pida_init() 和 pida_init_with_params() 函数
+- [X] T015 在 src/fb/pida.c 中实现 pida_reset() 函数
+- [X] T016 在 src/fb/pida.c 中实现 pida_get_output() 函数
+- [X] T017 在 src/fb/pida.c 中实现 pida_get_state() 和 pida_set_state() 函数
 
 **Checkpoint**: 基础设施完成 - 用户故事实现可以开始
 
@@ -68,26 +68,26 @@
 
 ### Tests for User Story 1
 
-- [ ] T018 [P] [US1] 创建 tests/unit/c/test_pida.c 测试框架，添加参数验证测试用例
-- [ ] T019 [P] [US1] 在 tests/unit/c/test_pida.c 中添加初始化和默认参数测试
-- [ ] T020 [P] [US1] 创建 tests/unit/python/test_pida.py 测试框架
+- [X] T018 [P] [US1] 创建 tests/unit/c/test_pida.c 测试框架，添加参数验证测试用例
+- [X] T019 [P] [US1] 在 tests/unit/c/test_pida.c 中添加初始化和默认参数测试
+- [X] T020 [P] [US1] 创建 tests/unit/python/test_pida.py 测试框架
 
 ### Implementation for User Story 1
 
-- [ ] T021 [US1] 在 src/fb/pida.c 中实现数据准备逻辑（参数边界修正），对应ST代码"1.数据准备"段落
-- [ ] T022 [US1] 在 src/fb/pida.c 中实现PID计算核心算法（标准型EQN=0），对应ST代码"PID calculate"段落
-- [ ] T023 [US1] 在 src/fb/pida.c 中实现微分项计算（DK, D1, dudd），支持三种PID公式（EQN=0,1,2）
-- [ ] T024 [US1] 在 src/fb/pida.c 中实现积分分离逻辑（si, SV1, INTEDB）
-- [ ] T025 [US1] 在 src/fb/pida.c 中实现死区处理逻辑（DD, DeadInterval, DVDB）
-- [ ] T026 [US1] 在 src/fb/pida.c 中实现位置式输出计算（OUTOPT=0, ukout）
-- [ ] T027 [US1] 在 src/fb/pida.c 中实现增量式输出计算（OUTOPT=1, duout）
-- [ ] T028 [US1] 在 src/fb/pida.c 中实现输出限幅逻辑（OUTU, OUTL, OVE）
-- [ ] T029 [US1] 在 src/fb/pida.c 中实现输出变化率限制（OUTRAT, RealOutRat）
-- [ ] T030 [US1] 在 src/fb/pida.c 中实现输出补偿计算（OUTCOMP, OCTYP加法/乘法）
-- [ ] T031 [US1] 在 src/fb/pida.c 中实现正反作用切换（ACTOPT）
-- [ ] T032 [US1] 在 src/fb/pida.c 中实现 pida_execute() 主函数框架，整合上述逻辑
-- [ ] T033 [P] [US1] 在 tests/unit/c/test_pida.c 中添加PID计算正确性测试（自动模式稳态）
-- [ ] T034 [P] [US1] 在 tests/unit/c/test_pida.c 中添加输出限幅测试
+- [X] T021 [US1] 在 src/fb/pida.c 中实现数据准备逻辑（参数边界修正），对应ST代码"1.数据准备"段落
+- [X] T022 [US1] 在 src/fb/pida.c 中实现PID计算核心算法（标准型EQN=0），对应ST代码"PID calculate"段落
+- [X] T023 [US1] 在 src/fb/pida.c 中实现微分项计算（DK, D1, dudd），支持三种PID公式（EQN=0,1,2）
+- [X] T024 [US1] 在 src/fb/pida.c 中实现积分分离逻辑（si, SV1, INTEDB）
+- [X] T025 [US1] 在 src/fb/pida.c 中实现死区处理逻辑（DD, DeadInterval, DVDB）
+- [X] T026 [US1] 在 src/fb/pida.c 中实现位置式输出计算（OUTOPT=0, ukout）
+- [X] T027 [US1] 在 src/fb/pida.c 中实现增量式输出计算（OUTOPT=1, duout）
+- [X] T028 [US1] 在 src/fb/pida.c 中实现输出限幅逻辑（OUTU, OUTL, OVE）
+- [X] T029 [US1] 在 src/fb/pida.c 中实现输出变化率限制（OUTRAT, RealOutRat）
+- [X] T030 [US1] 在 src/fb/pida.c 中实现输出补偿计算（OUTCOMP, OCTYP加法/乘法）
+- [X] T031 [US1] 在 src/fb/pida.c 中实现正反作用切换（ACTOPT）
+- [X] T032 [US1] 在 src/fb/pida.c 中实现 pida_execute() 主函数框架，整合上述逻辑
+- [X] T033 [P] [US1] 在 tests/unit/c/test_pida.c 中添加PID计算正确性测试（自动模式稳态）
+- [X] T034 [P] [US1] 在 tests/unit/c/test_pida.c 中添加输出限幅测试
 
 **Checkpoint**: User Story 1 完成 - 核心PID控制功能可用
 
@@ -101,21 +101,21 @@
 
 ### Tests for User Story 2
 
-- [ ] T035 [P] [US2] 在 tests/unit/c/test_pida.c 中添加模式切换测试（手动↔自动）
-- [ ] T036 [P] [US2] 在 tests/unit/c/test_pida.c 中添加无扰切换测试（输出波动<1%）
+- [X] T035 [P] [US2] 在 tests/unit/c/test_pida.c 中添加模式切换测试（手动↔自动）
+- [X] T036 [P] [US2] 在 tests/unit/c/test_pida.c 中添加无扰切换测试（输出波动<1%）
 
 ### Implementation for User Story 2
 
-- [ ] T037 [US2] 在 src/fb/pida.c 中实现手动模式（MODE=0）处理逻辑，包括MANMODE快慢增减
-- [ ] T038 [US2] 在 src/fb/pida.c 中实现自动模式（MODE=1）处理逻辑
-- [ ] T039 [US2] 在 src/fb/pida.c 中实现串级模式（MODE=2）处理逻辑，包括AUXCOMP接收
-- [ ] T040 [US2] 在 src/fb/pida.c 中实现手动跟踪模式（MODE=3）处理逻辑
-- [ ] T041 [US2] 在 src/fb/pida.c 中实现自动跟踪模式（MODE=4）处理逻辑
-- [ ] T042 [US2] 在 src/fb/pida.c 中实现跟踪开关处理（TRKSW, TRKVAL, TRKOPT, TRKMODE）
-- [ ] T043 [US2] 在 src/fb/pida.c 中实现模式切换无扰逻辑（SP跟踪PV, 输出保持）
-- [ ] T044 [US2] 在 src/fb/pida.c 中实现 pida_set_mode() 和 pida_get_mode() 函数
-- [ ] T045 [US2] 在 src/fb/pida.c 中实现手动输出限幅无扰逻辑（LMBLS, MOFLAG）
-- [ ] T046 [US2] 在 src/fb/pida.c 中实现模式值保护（MODE>4时回退到nowRM）
+- [X] T037 [US2] 在 src/fb/pida.c 中实现手动模式（MODE=0）处理逻辑，包括MANMODE快慢增减
+- [X] T038 [US2] 在 src/fb/pida.c 中实现自动模式（MODE=1）处理逻辑
+- [X] T039 [US2] 在 src/fb/pida.c 中实现串级模式（MODE=2）处理逻辑，包括AUXCOMP接收
+- [X] T040 [US2] 在 src/fb/pida.c 中实现手动跟踪模式（MODE=3）处理逻辑
+- [X] T041 [US2] 在 src/fb/pida.c 中实现自动跟踪模式（MODE=4）处理逻辑
+- [X] T042 [US2] 在 src/fb/pida.c 中实现跟踪开关处理（TRKSW, TRKVAL, TRKOPT, TRKMODE）
+- [X] T043 [US2] 在 src/fb/pida.c 中实现模式切换无扰逻辑（SP跟踪PV, 输出保持）
+- [X] T044 [US2] 在 src/fb/pida.c 中实现 pida_set_mode() 和 pida_get_mode() 函数
+- [X] T045 [US2] 在 src/fb/pida.c 中实现手动输出限幅无扰逻辑（LMBLS, MOFLAG）
+- [X] T046 [US2] 在 src/fb/pida.c 中实现模式值保护（MODE>4时回退到nowRM）
 
 **Checkpoint**: User Story 2 完成 - 五种运行模式及切换功能可用
 
@@ -129,19 +129,19 @@
 
 ### Tests for User Story 3
 
-- [ ] T047 [P] [US3] 在 tests/unit/c/test_pida.c 中添加时间爬坡测试（RTYP=0）
-- [ ] T048 [P] [US3] 在 tests/unit/c/test_pida.c 中添加速率爬坡测试（RTYP=1）
+- [X] T047 [P] [US3] 在 tests/unit/c/test_pida.c 中添加时间爬坡测试（RTYP=0）
+- [X] T048 [P] [US3] 在 tests/unit/c/test_pida.c 中添加速率爬坡测试（RTYP=1）
 
 ### Implementation for User Story 3
 
-- [ ] T049 [US3] 在 src/fb/pida.c 中实现时间爬坡逻辑（RTYP=0, RTIMESP）
-- [ ] T050 [US3] 在 src/fb/pida.c 中实现速率爬坡逻辑（RTYP=1, RRATSP）
-- [ ] T051 [US3] 在 src/fb/pida.c 中实现爬坡命令处理（RCMD启动/停止）
-- [ ] T052 [US3] 在 src/fb/pida.c 中实现爬坡目标值和剩余时间计算（RSPTV, RTIME, RRAT）
-- [ ] T053 [US3] 在 src/fb/pida.c 中实现爬坡暂停逻辑（ROVEP, 输出超限时暂停）
-- [ ] T054 [US3] 在 src/fb/pida.c 中实现爬坡防篡改逻辑（preRTYP, preRTIMESP, preRRATSP, preRSPTV）
-- [ ] T055 [US3] 在 src/fb/pida.c 中实现 pida_start_ramp() 和 pida_stop_ramp() 函数
-- [ ] T056 [US3] 在 src/fb/pida.c 中实现 pida_get_ramp_status() 函数
+- [X] T049 [US3] 在 src/fb/pida.c 中实现时间爬坡逻辑（RTYP=0, RTIMESP）
+- [X] T050 [US3] 在 src/fb/pida.c 中实现速率爬坡逻辑（RTYP=1, RRATSP）
+- [X] T051 [US3] 在 src/fb/pida.c 中实现爬坡命令处理（RCMD启动/停止）
+- [X] T052 [US3] 在 src/fb/pida.c 中实现爬坡目标值和剩余时间计算（RSPTV, RTIME, RRAT）
+- [X] T053 [US3] 在 src/fb/pida.c 中实现爬坡暂停逻辑（ROVEP, 输出超限时暂停）
+- [X] T054 [US3] 在 src/fb/pida.c 中实现爬坡防篡改逻辑（preRTYP, preRTIMESP, preRRATSP, preRSPTV）
+- [X] T055 [US3] 在 src/fb/pida.c 中实现 pida_start_ramp() 和 pida_stop_ramp() 函数
+- [X] T056 [US3] 在 src/fb/pida.c 中实现 pida_get_ramp_status() 函数
 
 **Checkpoint**: User Story 3 完成 - 设定值爬坡功能可用
 
@@ -155,22 +155,22 @@
 
 ### Tests for User Story 4
 
-- [ ] T057 [P] [US4] 在 tests/unit/c/test_pida.c 中添加高限报警测试（AH, AHIND）
-- [ ] T058 [P] [US4] 在 tests/unit/c/test_pida.c 中添加低限报警测试（AL, ALIND）
-- [ ] T059 [P] [US4] 在 tests/unit/c/test_pida.c 中添加报警死区测试（ALMDB）
+- [X] T057 [P] [US4] 在 tests/unit/c/test_pida.c 中添加高限报警测试（AH, AHIND）
+- [X] T058 [P] [US4] 在 tests/unit/c/test_pida.c 中添加低限报警测试（AL, ALIND）
+- [X] T059 [P] [US4] 在 tests/unit/c/test_pida.c 中添加报警死区测试（ALMDB）
 
 ### Implementation for User Story 4
 
-- [ ] T060 [US4] 在 src/fb/pida.c 中实现 ai_alm() 辅助函数（报警检测带死区）
-- [ ] T061 [US4] 在 src/fb/pida.c 中实现高高限报警逻辑（HH, HHIND, H2, INHH2）
-- [ ] T062 [US4] 在 src/fb/pida.c 中实现高限报警逻辑（AH, AHIND, H1, INHH1）
-- [ ] T063 [US4] 在 src/fb/pida.c 中实现低限报警逻辑（AL, ALIND, L1, INHL1）
-- [ ] T064 [US4] 在 src/fb/pida.c 中实现低低限报警逻辑（LL, LLIND, L2, INHL2）
-- [ ] T065 [US4] 在 src/fb/pida.c 中实现报警信息字更新（AM按位写入）
-- [ ] T066 [US4] 在 src/fb/pida.c 中实现报警死区计算（RALALMDB）
-- [ ] T067 [US4] 在 src/fb/pida.c 中实现报警级别检查（H1/H2/L1/L2>0时启用）
-- [ ] T068 [US4] 在 src/fb/pida.c 中实现报警总开关（ALMOPT）
-- [ ] T069 [US4] 在 src/fb/pida.c 中实现 pida_get_alarms() 和 pida_get_alarm_word() 函数
+- [X] T060 [US4] 在 src/fb/pida.c 中实现 ai_alm() 辅助函数（报警检测带死区）
+- [X] T061 [US4] 在 src/fb/pida.c 中实现高高限报警逻辑（HH, HHIND, H2, INHH2）
+- [X] T062 [US4] 在 src/fb/pida.c 中实现高限报警逻辑（AH, AHIND, H1, INHH1）
+- [X] T063 [US4] 在 src/fb/pida.c 中实现低限报警逻辑（AL, ALIND, L1, INHL1）
+- [X] T064 [US4] 在 src/fb/pida.c 中实现低低限报警逻辑（LL, LLIND, L2, INHL2）
+- [X] T065 [US4] 在 src/fb/pida.c 中实现报警信息字更新（AM按位写入）
+- [X] T066 [US4] 在 src/fb/pida.c 中实现报警死区计算（RALALMDB）
+- [X] T067 [US4] 在 src/fb/pida.c 中实现报警级别检查（H1/H2/L1/L2>0时启用）
+- [X] T068 [US4] 在 src/fb/pida.c 中实现报警总开关（ALMOPT）
+- [X] T069 [US4] 在 src/fb/pida.c 中实现 pida_get_alarms() 和 pida_get_alarm_word() 函数
 
 **Checkpoint**: User Story 4 完成 - 四级过程值报警功能可用
 
@@ -184,16 +184,16 @@
 
 ### Tests for User Story 5
 
-- [ ] T070 [P] [US5] 在 tests/unit/c/test_pida.c 中添加偏差报警触发测试
-- [ ] T071 [P] [US5] 在 tests/unit/c/test_pida.c 中添加偏差报警抑制测试（INHDAL）
+- [X] T070 [P] [US5] 在 tests/unit/c/test_pida.c 中添加偏差报警触发测试
+- [X] T071 [P] [US5] 在 tests/unit/c/test_pida.c 中添加偏差报警抑制测试（INHDAL）
 
 ### Implementation for User Story 5
 
-- [ ] T072 [US5] 在 src/fb/pida.c 中实现偏差报警限计算（DevalmLimit, DAL）
-- [ ] T073 [US5] 在 src/fb/pida.c 中实现偏差报警检测逻辑（DA, almerror）
-- [ ] T074 [US5] 在 src/fb/pida.c 中实现偏差报警抑制（INHDAL）
-- [ ] T075 [US5] 在 src/fb/pida.c 中实现偏差报警级别检查（DALLV>0时启用）
-- [ ] T076 [US5] 在 src/fb/pida.c 中更新报警信息字偏差位（AM.bit7）
+- [X] T072 [US5] 在 src/fb/pida.c 中实现偏差报警限计算（DevalmLimit, DAL）
+- [X] T073 [US5] 在 src/fb/pida.c 中实现偏差报警检测逻辑（DA, almerror）
+- [X] T074 [US5] 在 src/fb/pida.c 中实现偏差报警抑制（INHDAL）
+- [X] T075 [US5] 在 src/fb/pida.c 中实现偏差报警级别检查（DALLV>0时启用）
+- [X] T076 [US5] 在 src/fb/pida.c 中更新报警信息字偏差位（AM.bit7）
 
 **Checkpoint**: User Story 5 完成 - 偏差报警功能可用
 
@@ -207,17 +207,17 @@
 
 ### Tests for User Story 6
 
-- [ ] T077 [P] [US6] 在 tests/unit/c/test_pida.c 中添加旁路切入测试
-- [ ] T078 [P] [US6] 在 tests/unit/c/test_pida.c 中添加旁路切出测试
+- [X] T077 [P] [US6] 在 tests/unit/c/test_pida.c 中添加旁路切入测试
+- [X] T078 [P] [US6] 在 tests/unit/c/test_pida.c 中添加旁路切出测试
 
 ### Implementation for User Story 6
 
-- [ ] T079 [US6] 在 src/fb/pida.c 中实现旁路模式检测（CTRBP, PIDTYPE=2）
-- [ ] T080 [US6] 在 src/fb/pida.c 中实现旁路模式下的输出跟踪（OUT=AUXCOMP）
-- [ ] T081 [US6] 在 src/fb/pida.c 中实现旁路退出时的U1反推计算
-- [ ] T082 [US6] 在 src/fb/pida.c 中实现旁路状态更新（OVE.bit3, preCTRBP）
-- [ ] T083 [US6] 在 src/fb/pida.c 中实现旁路退出时自动切手动
-- [ ] T084 [US6] 在 src/fb/pida.c 中实现 pida_set_bypass() 函数
+- [X] T079 [US6] 在 src/fb/pida.c 中实现旁路模式检测（CTRBP, PIDTYPE=2）
+- [X] T080 [US6] 在 src/fb/pida.c 中实现旁路模式下的输出跟踪（OUT=AUXCOMP）
+- [X] T081 [US6] 在 src/fb/pida.c 中实现旁路退出时的U1反推计算
+- [X] T082 [US6] 在 src/fb/pida.c 中实现旁路状态更新（OVE.bit3, preCTRBP）
+- [X] T083 [US6] 在 src/fb/pida.c 中实现旁路退出时自动切手动
+- [X] T084 [US6] 在 src/fb/pida.c 中实现 pida_set_bypass() 函数
 
 **Checkpoint**: User Story 6 完成 - 控制旁路功能可用
 
@@ -231,13 +231,13 @@
 
 ### Tests for User Story 7
 
-- [ ] T085 [P] [US7] 在 tests/unit/c/test_pida.c 中添加报警切手动测试
+- [X] T085 [P] [US7] 在 tests/unit/c/test_pida.c 中添加报警切手动测试
 
 ### Implementation for User Story 7
 
-- [ ] T086 [US7] 在 src/fb/pida.c 中实现限值报警切手动逻辑（MANCUT位掩码）
-- [ ] T087 [US7] 在 src/fb/pida.c 中实现通道故障切手动逻辑（Q质量字检测）
-- [ ] T088 [US7] 在 src/fb/pida.c 中实现偶校验故障计数（EVENFAULT）
+- [X] T086 [US7] 在 src/fb/pida.c 中实现限值报警切手动逻辑（MANCUT位掩码）
+- [X] T087 [US7] 在 src/fb/pida.c 中实现通道故障切手动逻辑（Q质量字检测）
+- [X] T088 [US7] 在 src/fb/pida.c 中实现偶校验故障计数（EVENFAULT）
 
 **Checkpoint**: User Story 7 完成 - 报警切手动功能可用
 
@@ -249,26 +249,26 @@
 
 ### Implementation
 
-- [ ] T089 在 src/python/py_pida.c 中定义 PyPIDA 类型对象结构
-- [ ] T090 在 src/python/py_pida.c 中实现 PyPIDA_new() 和 PyPIDA_init() 方法
-- [ ] T091 在 src/python/py_pida.c 中实现 PyPIDA_execute() 方法
-- [ ] T092 在 src/python/py_pida.c 中实现 PyPIDA_reset() 方法
-- [ ] T093 在 src/python/py_pida.c 中实现属性 getter（output, error, hhind, ahind, alind, llind, da, am, ove）
-- [ ] T094 在 src/python/py_pida.c 中实现属性 getter/setter（sp, mode, bypass）
-- [ ] T095 在 src/python/py_pida.c 中实现 start_ramp(), stop_ramp() 方法
-- [ ] T096 在 src/python/py_pida.c 中实现 manual_adjust(), sp_adjust() 方法
-- [ ] T097 在 src/python/py_pida.c 中实现 get_state(), set_state() 方法
-- [ ] T098 在 src/python/py_pida.c 中实现 set_params(), get_params() 方法
-- [ ] T099 在 src/python/plcopen_module.c 中注册 PIDA 类型和枚举常量
-- [ ] T100 更新 plcopen/__init__.py 导出 PIDA, PIDAMode, PIDAType, PIDAEquation
+- [X] T089 在 src/python/py_pida.c 中定义 PyPIDA 类型对象结构
+- [X] T090 在 src/python/py_pida.c 中实现 PyPIDA_new() 和 PyPIDA_init() 方法
+- [X] T091 在 src/python/py_pida.c 中实现 PyPIDA_execute() 方法
+- [X] T092 在 src/python/py_pida.c 中实现 PyPIDA_reset() 方法
+- [X] T093 在 src/python/py_pida.c 中实现属性 getter（output, error, hhind, ahind, alind, llind, da, am, ove）
+- [X] T094 在 src/python/py_pida.c 中实现属性 getter/setter（sp, mode, bypass）
+- [X] T095 在 src/python/py_pida.c 中实现 start_ramp(), stop_ramp() 方法
+- [X] T096 在 src/python/py_pida.c 中实现 manual_adjust(), sp_adjust() 方法
+- [X] T097 在 src/python/py_pida.c 中实现 get_state(), set_state() 方法
+- [X] T098 在 src/python/py_pida.c 中实现 set_params(), get_params() 方法
+- [X] T099 在 src/python/plcopen_module.c 中注册 PIDA 类型和枚举常量
+- [X] T100 更新 plcopen/__init__.py 导出 PIDA, PIDAMode, PIDAType, PIDAEquation
 
 ### Tests
 
-- [ ] T101 [P] 在 tests/unit/python/test_pida.py 中添加实例创建测试
-- [ ] T102 [P] 在 tests/unit/python/test_pida.py 中添加execute方法测试
-- [ ] T103 [P] 在 tests/unit/python/test_pida.py 中添加模式切换测试
-- [ ] T104 [P] 在 tests/unit/python/test_pida.py 中添加报警功能测试
-- [ ] T105 [P] 在 tests/unit/python/test_pida.py 中添加爬坡功能测试
+- [X] T101 [P] 在 tests/unit/python/test_pida.py 中添加实例创建测试
+- [X] T102 [P] 在 tests/unit/python/test_pida.py 中添加execute方法测试
+- [X] T103 [P] 在 tests/unit/python/test_pida.py 中添加模式切换测试
+- [X] T104 [P] 在 tests/unit/python/test_pida.py 中添加报警功能测试
+- [X] T105 [P] 在 tests/unit/python/test_pida.py 中添加爬坡功能测试
 
 **Checkpoint**: Python绑定完成 - PIDA可在Python中使用
 
@@ -280,20 +280,20 @@
 
 ### Demo Script (IC-007, IC-008)
 
-- [ ] T106 创建 scripts/demo_pida.py 演示脚本框架
-- [ ] T107 在 scripts/demo_pida.py 中添加单回路PID控制示例
-- [ ] T108 在 scripts/demo_pida.py 中添加手动/自动模式切换示例
-- [ ] T109 在 scripts/demo_pida.py 中添加四级报警功能示例
-- [ ] T110 在 scripts/demo_pida.py 中添加设定值爬坡功能示例
+- [X] T106 创建 scripts/demo_pida.py 演示脚本框架
+- [X] T107 在 scripts/demo_pida.py 中添加单回路PID控制示例
+- [X] T108 在 scripts/demo_pida.py 中添加手动/自动模式切换示例
+- [X] T109 在 scripts/demo_pida.py 中添加四级报警功能示例
+- [X] T110 在 scripts/demo_pida.py 中添加设定值爬坡功能示例
 
 ### Documentation & Cleanup
 
-- [ ] T111 [P] 更新 docs/api-reference.md 添加PIDA API文档
-- [ ] T112 [P] 更新 README.md 添加PIDA功能块说明
-- [ ] T113 代码审查和注释完善（确保中文注释）
-- [ ] T114 运行 quickstart.md 验证，确保示例可执行
-- [ ] T115 运行完整测试套件，确保覆盖率≥80%
-- [ ] T116 验证 pida.c 实现与 PIDA.xml ST源码逻辑一致性（对比核心算法分支，确保 IC-001/IC-002 合规）
+- [X] T111 [P] 更新 docs/api-reference.md 添加PIDA API文档
+- [X] T112 [P] 更新 README.md 添加PIDA功能块说明
+- [X] T113 代码审查和注释完善（确保中文注释）
+- [X] T114 运行 quickstart.md 验证，确保示例可执行
+- [X] T115 运行完整测试套件，确保覆盖率≥80%
+- [X] T116 验证 pida.c 实现与 PIDA.xml ST源码逻辑一致性（对比核心算法分支，确保 IC-001/IC-002 合规）
 
 **Checkpoint**: 项目完成 - PIDA功能块已就绪
 

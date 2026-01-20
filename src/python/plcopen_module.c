@@ -16,6 +16,9 @@
 extern PyTypeObject PIDType;
 extern PyTypeObject FirstOrderType;
 
+/* PIDA 注册函数（py_pida.c定义） */
+extern int PyPIDA_Register(PyObject *module);
+
 /* Python类型注册表 */
 typedef struct {
     const char *name;
@@ -139,6 +142,12 @@ PyInit_plcopen(void)
 
     /* 使用注册表添加所有类型 */
     if (register_all_types(m) < 0) {
+        Py_DECREF(m);
+        return NULL;
+    }
+
+    /* 注册PIDA类型（使用独立注册函数） */
+    if (PyPIDA_Register(m) < 0) {
         Py_DECREF(m);
         return NULL;
     }
