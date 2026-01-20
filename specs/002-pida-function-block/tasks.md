@@ -42,13 +42,13 @@
 
 **⚠️ CRITICAL**: 用户故事实现必须等待本阶段完成
 
-- [ ] T005 在 include/plcopen/fb_pida.h 中定义 pida_params_t 结构体（配置参数，约50个字段）
-- [ ] T006 在 include/plcopen/fb_pida.h 中定义 pida_input_t 结构体（运行时输入，约25个字段）
-- [ ] T007 在 include/plcopen/fb_pida.h 中定义 pida_state_t 结构体（内部状态，约50个字段）
-- [ ] T008 在 include/plcopen/fb_pida.h 中定义 pida_output_t 结构体（输出结果，约15个字段）
-- [ ] T009 在 include/plcopen/fb_pida.h 中定义 pida_instance_t 容器结构体
-- [ ] T010 在 include/plcopen/fb_pida.h 中定义枚举类型（pida_mode_t, pida_type_t, pida_eqn_t）
-- [ ] T011 在 include/plcopen/fb_pida.h 中定义位操作宏（PIDA_B_GET, PIDA_B_WRITE, PIDA_OVE_*, PIDA_AM_*）
+- [ ] T005 [P] 在 include/plcopen/fb_pida.h 中定义 pida_params_t 结构体（配置参数，参见 data-model.md）
+- [ ] T006 [P] 在 include/plcopen/fb_pida.h 中定义 pida_input_t 结构体（运行时输入，参见 data-model.md）
+- [ ] T007 [P] 在 include/plcopen/fb_pida.h 中定义 pida_state_t 结构体（内部状态，参见 data-model.md）
+- [ ] T008 [P] 在 include/plcopen/fb_pida.h 中定义 pida_output_t 结构体（输出结果，参见 data-model.md）
+- [ ] T009 [P] 在 include/plcopen/fb_pida.h 中定义 pida_instance_t 容器结构体
+- [ ] T010 [P] 在 include/plcopen/fb_pida.h 中定义枚举类型（pida_mode_t, pida_type_t, pida_eqn_t）
+- [ ] T011 [P] 在 include/plcopen/fb_pida.h 中定义位操作宏（PIDA_B_GET, PIDA_B_WRITE, PIDA_OVE_*, PIDA_AM_*）
 - [ ] T012 在 src/fb/pida.c 中实现 pida_default_params() 函数
 - [ ] T013 在 src/fb/pida.c 中实现 pida_validate_params() 函数
 - [ ] T014 在 src/fb/pida.c 中实现 pida_init() 和 pida_init_with_params() 函数
@@ -293,6 +293,7 @@
 - [ ] T113 代码审查和注释完善（确保中文注释）
 - [ ] T114 运行 quickstart.md 验证，确保示例可执行
 - [ ] T115 运行完整测试套件，确保覆盖率≥80%
+- [ ] T116 验证 pida.c 实现与 PIDA.xml ST源码逻辑一致性（对比核心算法分支，确保 IC-001/IC-002 合规）
 
 **Checkpoint**: 项目完成 - PIDA功能块已就绪
 
@@ -385,8 +386,8 @@ Task T034: "添加输出限幅测试"
 | Phase 8: US6 | 8 | 控制旁路 |
 | Phase 9: US7 | 4 | 报警切手动 |
 | Phase 10: Python | 17 | Python绑定 |
-| Phase 11: Demo | 10 | 示例与收尾 |
-| **Total** | **115** | |
+| Phase 11: Demo | 11 | 示例与收尾 + ST验证 |
+| **Total** | **116** | |
 
 ---
 

@@ -81,9 +81,6 @@ tests/unit/c/
 tests/unit/python/
 ├── test_pida.py         # PIDA Python 单元测试
 └── [existing: test_pid.py, test_first_order.py]
-
-tests/integration/
-└── test_pida_integration.py  # PIDA 集成测试（可选）
 ```
 
 **Structure Decision**: 选用 **Option 1: Single Project** 结构。PIDA功能块遵循现有PLCOpen运行时的目录组织模式：C头文件放在 `include/plcopen/`，C实现放在 `src/fb/`，Python绑定放在 `src/python/`，测试放在 `tests/unit/` 和 `tests/integration/`。此设计满足章程第III条"架构约束"要求，最小化对现有项目结构的修改。
