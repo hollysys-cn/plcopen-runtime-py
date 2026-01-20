@@ -117,20 +117,33 @@ PyPIDA_init(PyPIDA *self, PyObject *args, PyObject *kwds)
 static PyObject *
 PyPIDA_execute(PyPIDA *self, PyObject *args, PyObject *kwds)
 {
-    static char *kwlist[] = {"pv", "sp", "mode", "cyc", NULL};
+    static char *kwlist[] = {"pv", "mout", "sp", "mode", "cyc", NULL};
     
     float pv = 0.0f;
+    PyObject *mout_obj = NULL; /* 手动输出值对象，用于检测是否传入 */
     float sp = -1.0f;  /* -1表示使用当前SP */
     int mode = -1;     /* -1表示使用当前模式 */
     float cyc = -1.0f; /* -1表示使用上次周期 */
     
-    if (!PyArg_ParseTupleAndKeywords(args, kwds, "f|fif", kwlist,
-            &pv, &sp, &mode, &cyc)) {
+    if (!PyArg_ParseTupleAndKeywords(args, kwds, "f|Ofif", kwlist,
+            &pv, &mout_obj, &sp, &mode, &cyc)) {
         return NULL;
     }
     
     /* 更新输入 */
     self->last_input.pv = pv;
+    
+    /* 只有当用户明确传入 mout 参数时才设置 pmsw */
+    if (mout_obj != NULL) {
+        float mout = (float)PyFloat_AsDouble(mout_obj);
+        if (PyErr_Occurred()) {
+            return NULL;
+        }
+        self->last_input.pmout = mout;  /* 程控手动输出 */
+        self->last_input.pmsw = true;   /* 使用程序手动输出 */
+    } else {
+        self->last_input.pmsw = false;  /* 不使用程序手动输出 */
+    }
     
     if (sp >= 0.0f) {
         self->last_input.sp = sp;

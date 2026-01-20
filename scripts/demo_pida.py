@@ -448,12 +448,15 @@ def demo_mode_switching():
     
     print("阶段1: 手动模式控制")
     print("-" * 40)
+    print("注: 输出变化率受限于outrat参数(默认5%/秒),实际输出渐进至目标值")
     pida.mode = MODE_MANUAL
     
-    # 手动调整输出
+    # 手动调整输出 - 多次执行使输出逐渐接近目标值
     for mout in [30.0, 40.0, 50.0]:
-        output = pida.execute(pv=pv)
-        print(f"手动输出设定: {mout}% → 实际输出: {output}%")
+        # 执行多次使输出逐渐接近目标值
+        for _ in range(20):  # 每个目标值执行多次
+            output = pida.execute(pv=pv, mout=mout)
+        print(f"手动输出设定: {mout}% → 实际输出: {output:.1f}%")
     
     print()
     print("阶段2: 手动→自动无扰切换")
