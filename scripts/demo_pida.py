@@ -57,7 +57,10 @@ except ImportError:
         def __init__(self, kp=100.0, ti=30.0, td=0.0, kd=1.0,
                      pvu=100.0, pvl=0.0, engu=100.0, engl=0.0,
                      outu=100.0, outl=0.0, spu=100.0, spl=0.0,
-                     pidtype=0, eqn=0, outopt=0, actopt=1, cyc=0.5):
+                     pidtype=0, eqn=0, outopt=0, actopt=1, cyc=0.5,
+                     hh=0.0, ah=0.0, al=0.0, ll=0.0,
+                     h2=0, h1=0, l1=0, l2=0,
+                     almdb=2.0, almopt=True):
             self.kp = kp
             self.ti = ti
             self.td = td
@@ -75,6 +78,17 @@ except ImportError:
             self.outopt = outopt
             self.actopt = actopt
             self.cyc = cyc
+            # 报警参数
+            self.hh = hh      # 高高限报警值
+            self.ah = ah      # 高限报警值
+            self.al = al      # 低限报警值
+            self.ll = ll      # 低低限报警值
+            self.h2 = h2      # 高高限报警级别 (0=禁用, 1-10=级别)
+            self.h1 = h1      # 高限报警级别
+            self.l1 = l1      # 低限报警级别
+            self.l2 = l2      # 低低限报警级别
+            self.almdb = almdb  # 报警死区
+            self.almopt = almopt  # 报警功能使能
             # 内部状态
             self._sp = 50.0
             self._mode = MODE_MANUAL
@@ -226,6 +240,43 @@ except ImportError:
                     self._ove |= 0x02
                 
                 self._prev_error = err_pct
+            
+            # 报警处理
+            if self.almopt:
+                db = self.almdb * (self.pvu - self.pvl) / 100.0
+                self._am = 0
+                
+                # 高高限报警 (h2 > 0 表示启用)
+                if self.h2 > 0:
+                    if pv >= self.hh:
+                        self._hhind = True
+                        self._am |= 0x08  # bit 3
+                    elif pv < self.hh - db:
+                        self._hhind = False
+                
+                # 高限报警 (h1 > 0 表示启用)
+                if self.h1 > 0:
+                    if pv >= self.ah:
+                        self._ahind = True
+                        self._am |= 0x04  # bit 2
+                    elif pv < self.ah - db:
+                        self._ahind = False
+                
+                # 低限报警 (l1 > 0 表示启用)
+                if self.l1 > 0:
+                    if pv <= self.al:
+                        self._alind = True
+                        self._am |= 0x02  # bit 1
+                    elif pv > self.al + db:
+                        self._alind = False
+                
+                # 低低限报警 (l2 > 0 表示启用)
+                if self.l2 > 0:
+                    if pv <= self.ll:
+                        self._llind = True
+                        self._am |= 0x01  # bit 0
+                    elif pv > self.ll + db:
+                        self._llind = False
             
             return self._output
         
@@ -434,15 +485,15 @@ def demo_four_level_alarm():
     示例3: 四级报警功能
     
     演示：
-    - HH (高高限) 报警
-    - AH (高限) 报警  
-    - AL (低限) 报警
-    - LL (低低限) 报警
+    - HH (高高限) 报警: 80%
+    - AH (高限) 报警: 60%  
+    - AL (低限) 报警: 30%
+    - LL (低低限) 报警: 20%
+    - 报警级别均为1 (普通报警)
     """
     print_separator("示例3: 四级过程值报警")
     
-    # 注意：报警功能需要通过参数配置
-    # 这里演示报警状态读取
+    # 创建PIDA实例，配置报警参数
     pida = PIDA(
         kp=100.0,
         ti=30.0,
@@ -450,20 +501,33 @@ def demo_four_level_alarm():
         outu=100.0, outl=0.0,
         pidtype=TYPE_SINGLE,
         cyc=0.5,
+        # 报警限值配置
+        hh=80.0,       # 高高限报警值
+        ah=60.0,       # 高限报警值
+        al=30.0,       # 低限报警值
+        ll=20.0,       # 低低限报警值
+        # 报警级别配置 (1=普通报警, 0=禁用)
+        h2=1,          # 高高限报警级别
+        h1=1,          # 高限报警级别
+        l1=1,          # 低限报警级别
+        l2=1,          # 低低限报警级别
+        almdb=2.0,     # 报警死区 2%
+        almopt=True,   # 启用报警功能
     )
     
     print("报警限值配置:")
-    print("  LL (低低限): 10%")
-    print("  AL (低限):   20%")
-    print("  AH (高限):   80%")
-    print("  HH (高高限): 90%")
+    print("  LL (低低限): 20%  级别: 1 (普通报警)")
+    print("  AL (低限):   30%  级别: 1 (普通报警)")
+    print("  AH (高限):   60%  级别: 1 (普通报警)")
+    print("  HH (高高限): 80%  级别: 1 (普通报警)")
+    print("  报警死区:    2%")
     print()
     
     # 模拟不同PV值下的报警状态
-    test_values = [5.0, 15.0, 50.0, 85.0, 95.0]
+    test_values = [15.0, 25.0, 45.0, 65.0, 85.0]
     
-    print("PV值 | LL | AL | AH | HH | AM(报警字)")
-    print("-" * 50)
+    print("PV值  | LL | AL | AH | HH | AM(报警字) | 状态说明")
+    print("-" * 65)
     
     for pv in test_values:
         pida.execute(pv=pv)
@@ -475,10 +539,24 @@ def demo_four_level_alarm():
         hh = "●" if pida.hhind else "○"
         am = pida.am
         
-        print(f"{pv:5.1f} | {ll:^2} | {al:^2} | {ah:^2} | {hh:^2} | 0x{am:04X}")
+        # 状态说明
+        if pida.llind:
+            status = "低低限报警"
+        elif pida.alind:
+            status = "低限报警"
+        elif pida.hhind:
+            status = "高高限报警"
+        elif pida.ahind:
+            status = "高限报警"
+        else:
+            status = "正常"
+        
+        print(f"{pv:5.1f} | {ll:^2} | {al:^2} | {ah:^2} | {hh:^2} | 0x{am:04X}     | {status}")
+        time.sleep(0.3)  # 延时便于观察
     
     print()
     print("说明: ● = 报警激活, ○ = 正常")
+    print("报警字 AM: bit0=LL, bit1=AL, bit2=AH, bit3=HH")
 
 
 def demo_setpoint_ramp():
