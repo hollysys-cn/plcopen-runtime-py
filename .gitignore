@@ -134,3 +134,4 @@ scripts/*.py
 !scripts/.gitkeep
 !scripts/__init__.py
 !scripts/demo_pida.py
+*.zip
